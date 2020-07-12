@@ -4,6 +4,7 @@ import {
     FETCH_SINGLE_ITEM, 
     ON_CHANGE_SINGLE_ITEM, 
     UPDATE_SINGLE_ITEM,
+    CREATE_SINGLE_ITEM,
     DELETE_SINGLE_ITEM,
     UPDATE_STOCK_ITEM
 } from './actionTypes'
@@ -24,11 +25,29 @@ export const fetchAllItems = () => {
 
 export const fetchSingleItem = (id) =>{
     let response = async dispatch =>{
-        let data = await axios.get("").then(doc=>{
+        let data = await axios.get(`http://localhost:4500/item/item/${id}`).then(doc=>{
             return doc
         })
         dispatch({
             type:FETCH_SINGLE_ITEM,
+            response:data
+        })
+    }
+}
+
+export const createSingleItem = (dataItem) =>{
+    let response = async dispatch =>{
+        let data = await axios.post("http://localhost:4500/item/item/",{
+            headers:{
+                "Content-Type":"application/json"
+            }
+        },{
+            ...dataItem
+        }).then(doc=>{
+            return doc
+        })
+        dispatch({
+            type:CREATE_SINGLE_ITEM,
             response:data
         })
     }

@@ -1,20 +1,22 @@
 import React from 'react'
-import {Card} from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 
-const CardItem = () =>{
-    return(
-        <Card style={{ width: '18rem' }}>
-  <Card.Img variant="top" src="holder.js/100px180" />
-  <Card.Body>
-    <Card.Title>Card Title</Card.Title>
-    <Card.Text>
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content.
-    </Card.Text>
-    <Button variant="primary">Go somewhere</Button>
-  </Card.Body>
-</Card>
-    )
+import {Link} from 'react-router-dom'
+
+const CardItem = (props) => {
+  return (
+    <Card>
+      {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
+      <Card.Body>
+        <Card.Title>{props.data.title}</Card.Title>
+        <Card.Text>
+          Jumlah: {props.data.stock}
+      </Card.Text>
+        <Button style={{marginRight:"0.5%",marginTop:"0.1%"}} variant="primary"><Link style={{color:"#FFF"}} to="/">Edit Item</Link></Button>
+        <Button style={{marginRight:"0.1%",marginTop:"0.1%"}} variant="success"><Link  style={{color:"#FFF"}} to="/">Add to Cart</Link></Button>
+      </Card.Body>
+    </Card>
+  )
 }
 
 export default CardItem

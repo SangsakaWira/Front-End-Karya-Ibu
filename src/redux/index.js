@@ -1,1 +1,1 @@
-export {fetchAllItems} from './items/actions'
+export {fetchAllItems,createSingleItem} from './items/actions'

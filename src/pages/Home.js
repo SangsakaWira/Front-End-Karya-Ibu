@@ -1,26 +1,39 @@
-import React,{useEffect} from 'react'
-import { Container } from 'react-bootstrap'
-import {fetchAllItems} from '../redux'
-import {connect} from 'react-redux'
+import React, { useEffect } from 'react'
+import { Container, Form, InputGroup, Button, FormControl } from 'react-bootstrap'
+import { fetchAllItems } from '../redux'
+import { connect } from 'react-redux'
+import ItemLists from '../components/ItemLists'
 
-const Home = (props) =>{
+const Home = (props) => {
 
-    useEffect(()=>{
+    useEffect(() => {
         props.fetchAllItems()
-    },[])
+        console.log(props.items)
+    }, [])
 
-    return(
+    return (
         <Container>
-            <h1>Home</h1>
+            <Form>
+                <InputGroup className="mb-3">
+                    <FormControl
+                        placeholder="Recipient's username"
+                        aria-label="Recipient's username"
+                        aria-describedby="basic-addon2"
+                    />
+                    <InputGroup.Append>
+                        <Button variant="outline-secondary">Button</Button>
+                    </InputGroup.Append>
+                </InputGroup>
+            </Form>
+            <ItemLists data={props.items}></ItemLists>
         </Container>
     )
 }
 
-const mapStateToProps = state =>{
-    console.log(state)
-    return{
-        items:state.items
+const mapStateToProps = state => {
+    return {
+        items: state.items.response
     }
 }
 
-export default connect(mapStateToProps,{fetchAllItems})(Home)
+export default connect(mapStateToProps, { fetchAllItems })(Home)
