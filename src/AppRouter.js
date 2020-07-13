@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import AddItem from './pages/AddItem'
 import Checkout from './pages/Checkout'
 import EditItem from './pages/EditItem'
+import AddUser from './pages/AddUser'
 
 const AppRouter = () =>{
     return(
@@ -16,6 +17,7 @@ const AppRouter = () =>{
                 <Route path="/tambah-item" component={AddItem} />
                 <Route path="/checkout" component={Checkout} />
                 <Route path="/edit-item" component={EditItem} />
+                <Route path="/add-user" component={AddUser} />
             </Switch>
         </Router>
     )

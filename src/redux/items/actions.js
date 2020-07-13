@@ -6,6 +6,7 @@ import {
     UPDATE_SINGLE_ITEM,
     CREATE_SINGLE_ITEM,
     DELETE_SINGLE_ITEM,
+    FETCH_ALL_ITEMS_ALIKE,
     UPDATE_STOCK_ITEM
 } from './actionTypes'
 
@@ -94,4 +95,24 @@ export const onChangeSingleItem = (payload) =>{
         type:ON_CHANGE_SINGLE_ITEM,
         payload:payload
     }
+}
+
+export const fetchItemsAlike = (dataItem) =>{
+    return async dispatch => {
+        let response = await axios
+          .post(`http://localhost:4500/item/itemAlike/`,{
+              title:dataItem
+          },{
+            headers:{
+                "Content-Type":"application/json"
+            }
+        })
+          .then(doc => {
+            return doc;
+          });
+        dispatch({
+          type: FETCH_ALL_ITEMS_ALIKE,
+          response: response.data.doc
+        });
+      };
 }

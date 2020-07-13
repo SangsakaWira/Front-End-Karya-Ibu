@@ -1,1 +1,1 @@
-export {fetchAllItems,createSingleItem} from './items/actions'
+export {fetchAllItems,createSingleItem,fetchItemsAlike} from './items/actions'

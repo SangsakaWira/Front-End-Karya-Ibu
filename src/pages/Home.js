@@ -1,27 +1,54 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import { Container, Form, InputGroup, Button, FormControl } from 'react-bootstrap'
-import { fetchAllItems } from '../redux'
+import { fetchAllItems,fetchItemsAlike } from '../redux'
 import { connect } from 'react-redux'
 import ItemLists from '../components/ItemLists'
 
 const Home = (props) => {
 
+    const [dataItem,setDataItem] = useState({
+        title:""
+    })
+
     useEffect(() => {
         props.fetchAllItems()
-        console.log(props.items)
     }, [])
+
+    const onChange = (event) =>{
+        setDataItem({
+            ...dataItem,
+            [event.target.name]: event.target.value
+        })
+        // if(dataItem.title !== ""){
+        //     props.fetchItemsAlike(dataItem)
+        // }else{
+        //     props.fetchAllItems()
+        // }
+    }
+
+    const onSubmit = (event) =>{
+        console.log(dataItem)
+        if(dataItem.title !== ""){
+            props.fetchItemsAlike(dataItem)
+        }else{
+            props.fetchAllItems()
+        }
+        event.preventDefault()
+    }
 
     return (
         <Container>
-            <Form>
+            <Form onSubmit={onSubmit}>
                 <InputGroup className="mb-3">
                     <FormControl
-                        placeholder="Recipient's username"
+                        onChange={onChange}
+                        name="title"
+                        placeholder="Search"
                         aria-label="Recipient's username"
                         aria-describedby="basic-addon2"
                     />
                     <InputGroup.Append>
-                        <Button variant="outline-secondary">Button</Button>
+                        <Button type="submit" variant="outline-secondary">Search</Button>
                     </InputGroup.Append>
                 </InputGroup>
             </Form>
@@ -36,4 +63,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, { fetchAllItems })(Home)
+export default connect(mapStateToProps, { fetchAllItems,fetchItemsAlike })(Home)

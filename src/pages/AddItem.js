@@ -3,13 +3,14 @@ import { Container, Form,Button } from 'react-bootstrap'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import {createSingleItem} from '../redux'
+import {Field, reduxForm} from 'redux-form'
 
 const AddItem = (props) =>{
 
     const [dataUser, setDataUser] = useState({
         title: "",
         harga: "",
-        stok: "",
+        stock: "",
         image:""
     })
 
@@ -45,7 +46,7 @@ const AddItem = (props) =>{
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Stok Awal</Form.Label>
-                    <Form.Control onChange={handleChange} name="stok" type="text" placeholder="Masukkan Stok Barang" />
+                    <Form.Control onChange={handleChange} name="stock" type="text" placeholder="Masukkan Stok Barang" />
                 </Form.Group>
 
                 <Button variant="primary" type="submit">

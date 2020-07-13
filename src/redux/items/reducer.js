@@ -5,6 +5,7 @@ import {
     UPDATE_SINGLE_ITEM,
     DELETE_SINGLE_ITEM,
     CREATE_SINGLE_ITEM,
+    FETCH_ALL_ITEMS_ALIKE,
     UPDATE_STOCK_ITEM
 } from './actionTypes'
 
@@ -33,6 +34,11 @@ export const ItemReducer = (state=INITIAL_STATE,action) =>{
         case CREATE_SINGLE_ITEM:
             return{
                 ...state
+            }
+        case FETCH_ALL_ITEMS_ALIKE:
+            return{
+                ...state,
+                response
             }
         default:
             return state
