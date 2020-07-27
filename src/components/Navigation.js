@@ -1,10 +1,10 @@
 import React from 'react'
-import { Navbar,Nav } from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const Navigation = (props) => {
     return (
-        <Navbar bg="light" expand="lg" style={{marginBottom:"2%"}}>
+        <Navbar bg="light" expand="lg" style={{ marginBottom: "2%" }}>
             <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -15,6 +15,9 @@ const Navigation = (props) => {
                     <Nav.Link><Link to="/checkout">Checkout</Link></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
+            <Form inline>
+                <Button variant="outline-danger"><Link to="/login">Login</Link></Button>
+            </Form>
         </Navbar>
     )
 }

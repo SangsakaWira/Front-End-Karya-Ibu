@@ -12,8 +12,8 @@ const CardItem = (props) => {
         <Card.Text>
           Jumlah: {props.data.stock}
       </Card.Text>
-        <Button style={{marginRight:"0.5%",marginTop:"0.1%"}} variant="primary"><Link style={{color:"#FFF"}} to="/">Edit Item</Link></Button>
-        <Button style={{marginRight:"0.1%",marginTop:"0.1%"}} variant="success"><Link  style={{color:"#FFF"}} to="/">Add to Cart</Link></Button>
+        <Button style={{marginRight:"0.5%",marginTop:"0.1%"}} variant="primary"><Link style={{color:"#FFF"}} to={"/edit-item/"+props.data._id} >Edit Item</Link></Button>
+        <Button style={{marginRight:"0.1%",marginTop:"0.1%"}} variant="success"><Link  style={{color:"#FFF"}} to="/add-item/1">Add to Cart</Link></Button>
       </Card.Body>
     </Card>
   )

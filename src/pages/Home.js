@@ -10,6 +10,8 @@ const Home = (props) => {
         title:""
     })
 
+    const [isLoading,setLoading] = useState(false)
+
     useEffect(() => {
         props.fetchAllItems()
     }, [])
@@ -19,11 +21,6 @@ const Home = (props) => {
             ...dataItem,
             [event.target.name]: event.target.value
         })
-        // if(dataItem.title !== ""){
-        //     props.fetchItemsAlike(dataItem)
-        // }else{
-        //     props.fetchAllItems()
-        // }
     }
 
     const onSubmit = (event) =>{
