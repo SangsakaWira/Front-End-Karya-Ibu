@@ -1,10 +1,10 @@
-import React from 'react';
+import React,{useContext,useEffect} from 'react';
 import {connect} from 'react-redux'
 import { Route, Redirect } from 'react-router-dom';
 
 const PrivateRoute = ({component: Component, ...rest}) => {
-    return (
 
+    return (
         // Show the component only when the user is logged in
         // Otherwise, redirect the user to /signin page
         <Route {...rest} render={props => (
@@ -15,8 +15,10 @@ const PrivateRoute = ({component: Component, ...rest}) => {
     );
 };
 
-const mapStateToProps = (state) =>{
-
+const MapStateToProps = (state) => {
+    return {
+        auth: state.auth
+    }
 }
 
-export default PrivateRoute;
+export default connect(MapStateToProps,{})(PrivateRoute);

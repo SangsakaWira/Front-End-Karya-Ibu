@@ -3,7 +3,6 @@ import { Container, Form,Button } from 'react-bootstrap'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import {createSingleItem} from '../redux'
-import {Field, reduxForm} from 'redux-form'
 
 const AddItem = (props) =>{
 
@@ -57,4 +56,13 @@ const AddItem = (props) =>{
     )
 }
 
-export default connect(null,{createSingleItem})(AddItem)
+const mapStateToProps = state => {
+    return {
+        username: state.auth.username,
+        token: state.auth.token,
+        error: state.auth.error,
+        msg: state.auth.msg
+    }
+}
+
+export default connect(mapStateToProps,{createSingleItem})(AddItem)

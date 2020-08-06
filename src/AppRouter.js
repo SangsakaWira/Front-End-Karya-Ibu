@@ -1,7 +1,8 @@
 import React from 'react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch,Redirect} from 'react-router-dom'
 import Navigation from './components/Navigation'
-import PrivateRoute from './components/PrivateRoute'
+import {connect} from 'react-redux'
+// import PrivateRoute from './components/PrivateRoute'
 
 import Home from './pages/Home'
 import AddItem from './pages/AddItem'
@@ -11,17 +12,26 @@ import AddUser from './pages/AddUser'
 import Login from './pages/Login'
 import Register from './pages/Register'
 
-const AppRouter = () =>{
+const AppRouter = (props) =>{
+
+    const PrivateRoute = (props) =>{
+        console.log(props.isAuth)
+        return (
+            <Route render={({component: Component, ...rest}) => (
+                localStorage.getItem('token') ? <Component {...props} /> : <Redirect to="/login" />
+            )} />
+        );
+    }
+
     return(
         <Router>
             <Navigation></Navigation>
             <Switch>
                 <Route path="/" exact component={Home} />
-                <Route path="/tambah-item" component={AddItem} />
-                <Route path="/checkout" component={Checkout} />
-                <Route path="/edit-item/:id" component={EditItem} />
+                <PrivateRoute path="/tambah-item" component={AddItem} />
+                <PrivateRoute path="/checkout" component={Checkout} />
+                <PrivateRoute path="/edit-item/:id" component={EditItem} />
                 <PrivateRoute component={AddUser} path="/add-user" exact />
-                {/* <Route path="/add-user" component={AddUser} /> */}
                 <Route path="/login" component={Login} />
                 <Route path="/register" component={Register} />
             </Switch>
@@ -29,4 +39,11 @@ const AppRouter = () =>{
     )
 }
 
-export default AppRouter
+const MapStateToProps = (state) => {
+    console.log(state)
+    return {
+        auth: state.auth
+    }
+}
+
+export default connect(MapStateToProps,{})(AppRouter)

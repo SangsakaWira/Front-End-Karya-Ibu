@@ -1,4 +1,4 @@
-import {LOGIN} from './actionTypes'
+import {LOGIN,REGISTER} from './actionTypes'
 import axios from 'axios'
 
 export const login = (dataItem) =>{
@@ -14,6 +14,24 @@ export const login = (dataItem) =>{
         })
         dispatch({
             type:LOGIN,
+            payload:data
+        })
+    }
+}
+
+export const register = (dataItem) =>{
+    return async dispatch =>{
+        let data = await axios.post("http://localhost:4500/user/register",{
+        ...dataItem
+        },{
+            headers:{
+                "Content-Type":"application/json"
+            }
+        }).then(doc=>{
+            return doc.data
+        })
+        dispatch({
+            type:REGISTER,
             payload:data
         })
     }
