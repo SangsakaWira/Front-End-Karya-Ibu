@@ -11,17 +11,9 @@ import EditItem from './pages/EditItem'
 import AddUser from './pages/AddUser'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import PrivateRoute from './components/PrivateRoute'
 
 const AppRouter = (props) =>{
-
-    const PrivateRoute = (props) =>{
-        console.log(props.isAuth)
-        return (
-            <Route render={({component: Component, ...rest}) => (
-                localStorage.getItem('token') ? <Component {...props} /> : <Redirect to="/login" />
-            )} />
-        );
-    }
 
     return(
         <Router>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link,Redirect } from 'react-router-dom'
 
 const Navigation = (props) => {
 
@@ -30,6 +30,24 @@ const Navigation = (props) => {
         }
     }
 
+    const handleSubmit = () =>{
+        localStorage.clear()
+    }
+    const renderButton = ()=>{
+        if(localStorage.getItem('token')){
+            return(
+                <Button variant="danger" type="submit">
+                    Logout
+                </Button>
+            )
+        }
+        return(
+            <Button variant="primary">
+                <Link to="/login" style={{color:"#FFF"}}>Login</Link>
+            </Button>
+        )
+    }
+
     return (
         <Navbar bg="light" expand="lg" style={{ marginBottom: "2%" }}>
             <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
@@ -37,9 +55,9 @@ const Navigation = (props) => {
             <Navbar.Collapse id="basic-navbar-nav">
                 {renderNavigation()}
             </Navbar.Collapse>
-            <Form inline>
-                <Button variant="outline-danger"><Link to="/login">Login</Link></Button>
-            </Form>
+                <Form inline onSubmit={handleSubmit}>
+                    {renderButton()}
+                </Form>
         </Navbar>
     )
 }

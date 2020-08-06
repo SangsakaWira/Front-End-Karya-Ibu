@@ -1,24 +1,27 @@
-import React,{useContext,useEffect} from 'react';
-import {connect} from 'react-redux'
-import { Route, Redirect } from 'react-router-dom';
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const PrivateRoute = ({component: Component, ...rest}) => {
+const PrivateRoute = ({ component: Component, auth, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      localStorage.getItem('token') ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to="/login" />
+      )
+    }
+  />
+);
 
-    return (
-        // Show the component only when the user is logged in
-        // Otherwise, redirect the user to /signin page
-        <Route {...rest} render={props => (
-            false ?
-                <Component {...props} />
-            : <Redirect to="/login" />
-        )} />
-    );
+PrivateRoute.propTypes = {
+  auth: PropTypes.object.isRequired
 };
 
-const MapStateToProps = (state) => {
-    return {
-        auth: state.auth
-    }
-}
+const mapStateToProps = state => ({
+  auth: state.isAuth
+});
 
-export default connect(MapStateToProps,{})(PrivateRoute);
+export default connect(mapStateToProps)(PrivateRoute);
