@@ -1,4 +1,4 @@
-import {LOGIN,REGISTER} from './actionTypes'
+import {LOGIN,REGISTER,LOGGED_IN} from './actionTypes'
 import axios from 'axios'
 
 export const login = (dataItem) =>{
@@ -34,5 +34,12 @@ export const register = (dataItem) =>{
             type:REGISTER,
             payload:data
         })
+    }
+}
+
+export const loggedIn = (id) =>{
+    return {
+        type:LOGGED_IN,
+        payload:id
     }
 }

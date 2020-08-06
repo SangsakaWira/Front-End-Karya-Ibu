@@ -1,7 +1,8 @@
-import {LOGIN,REGISTER,LOGOUT} from './actionTypes'
+import {LOGIN,REGISTER,LOGOUT,LOGGED_IN} from './actionTypes'
+import jwt_decode from "jwt-decode";
 
 const INITIAL_STATE = {
-    username:null,
+    id:null,
     token:null,
     error:null,
     msg:null,
@@ -12,10 +13,11 @@ export const AuthReducer = (state=INITIAL_STATE,action) =>{
     switch(action.type){
         case LOGIN:
             localStorage.setItem('token',action.payload.token)
+            const decoded = jwt_decode(localStorage.getItem('token'));
             return {
                 ...state,
                 token:action.payload.token,
-                username:action.payload.username,
+                id:decoded.id,
                 error:action.payload.error,
                 msg:action.payload.msg,
                 isAuth:true
@@ -24,9 +26,18 @@ export const AuthReducer = (state=INITIAL_STATE,action) =>{
             return {
                 ...state,
                 token:action.payload.token,
-                username:action.payload.username,
+                id:decoded.id,
                 error:action.payload.error,
                 msg:action.payload.msg,
+                isAuth:true
+            }
+        case LOGGED_IN:
+            return {
+                ...state,
+                token:action.payload.token,
+                id:decoded.id,
+                error:false,
+                msg:null,
                 isAuth:true
             }
         case LOGOUT:
@@ -34,7 +45,7 @@ export const AuthReducer = (state=INITIAL_STATE,action) =>{
             return {
                 ...state,
                 token:null,
-                username:null,
+                id:null,
                 error:null,
                 msg:null,
                 isAuth:false
